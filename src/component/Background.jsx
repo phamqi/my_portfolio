@@ -1,22 +1,16 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 
-import { useResize } from "./useResize";
 Background.propTypes = {};
 
-function Background({ width, height, data }) {
+function Background({ data }) {
   let canvas;
   let ctx;
-  const balls = [];
-  console.log(width, height);
-  console.log("rerenfer");
-
+  let icons = [];
   useEffect(() => {
     const dataLength = data.length;
     canvas = document.querySelector("canvas");
     ctx = canvas.getContext("2d");
-    canvas.width = width;
-    canvas.height = height;
-    class Ball {
+    class ICON {
       constructor(x, y, velx, vely, img) {
         this.x = x;
         this.y = y;
@@ -24,17 +18,19 @@ function Background({ width, height, data }) {
         this.vely = vely;
         this.img = img;
       }
-      drawImageRotated(rot) {
+      drawImage(rot) {
+        ctx.save();
         ctx.setTransform(1, 0, 0, 1, this.x, this.y);
         ctx.rotate(rot);
         ctx.drawImage(this.img, -20 / 2, -20 / 2);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.restore();
       }
-      updateBall() {
-        if (this.x + 64 >= width || this.x - 64 <= 0) {
+      update() {
+        if (this.x + 64 >= window.innerWidth || this.x - 64 <= 0) {
           this.velx = -this.velx;
         }
-        if (this.y + 64 >= height || this.y - 64 <= 0) {
+        if (this.y + 64 >= window.innerHeight || this.y - 64 <= 0) {
           this.vely = -this.vely;
         }
         this.x += this.velx;
@@ -48,44 +44,38 @@ function Background({ width, height, data }) {
       }
       return num;
     }
-
-    let h;
-    for (h = 0; h < dataLength; h++) {
-      let img = new Image();
-      img.src = data[h].img;
-      const ball = new Ball(
-        random(2, width),
-        random(2, height),
-        random(-1, 1),
-        random(-1, 1),
-        img
+    const imgs = data.map((source) => {
+      const image = document.createElement("img");
+      image.src = source.img;
+      return image;
+    });
+    const setup = () => {
+      icons = imgs.map(
+        (item) =>
+          new ICON(
+            random(1, window.innerWidth),
+            random(1, window.innerHeight),
+            random(-2, 2),
+            random(-2, 2),
+            item
+          )
       );
-      balls.push(ball);
-    }
-    function loop(time) {
-      for (let i = 0; i < balls.length; i++) {
-        balls[i].drawImageRotated(time / 1000);
-        balls[i].updateBall();
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    const animate = (time) => {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      for (let i = 0; i < dataLength; i++) {
+        icons[i].drawImage(time / 1000);
+        icons[i].update();
       }
-      ctx.fillStyle = "rgba(0,0,0,0.2)";
-      ctx.fillRect(0, 0, width, height);
-      requestAnimationFrame(loop);
-    }
-    loop();
-  }, [width, height, data]);
-  useEffect(() => {
-    function loop(time) {
-      for (let i = 0; i < balls.length; i++) {
-        balls[i].drawImageRotated(time / 1000);
-        balls[i].updateBall();
-      }
-      ctx.fillStyle = "rgba(0,0,0,0.2)";
-      ctx.fillRect(0, 0, width, height);
+    };
+    setup();
+    animate();
+    window.addEventListener("resize", setup);
+  }, []);
 
-      requestAnimationFrame(loop);
-    }
-    window.addEventListener("load", loop);
-  }, [width, height, data]);
   return <canvas id="canvas" className="canvas"></canvas>;
 }
 
