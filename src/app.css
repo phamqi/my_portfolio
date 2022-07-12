@@ -1,0 +1,151 @@
+html {
+  color: white;
+}
+.df {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.df-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.df-r {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.df-r-600-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.m-0 {
+  margin: 0;
+}
+.p-0 {
+  padding: 0;
+}
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-attachment: scroll;
+  z-index: 0;
+}
+.app {
+  z-index: 99999;
+  overflow: hidden;
+  /* max-width: 1450px; */
+  margin-left: auto;
+  margin-right: auto;
+}
+.app_items {
+  height: 100vh;
+  overflow-y: auto;
+
+}
+.app_bg {
+  height: 100vh;
+  position: relative;
+  background-color: transparent;
+}
+.app_txt {
+  color: white;
+  z-index: 1;
+  font-family: monospace;
+  width: 100%;
+  height: 100%;
+}
+.app_txt h1 {
+  margin: 1rem;
+  font-size: 7rem;
+}
+.app_txt h2 {
+  margin: 0.3rem 0;
+  font-size: 1.5rem;
+}
+.app_item {
+  box-sizing: border-box;
+  height: 60vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+  position: relative;
+  padding: 5vh max(3vw, min( 13vw,calc((100vw - 600px)*9999)));
+}
+.app_item h2 {
+  margin: 8vh 0;
+  font-size: 2rem;
+  font-family: monospace;
+}
+.app_img {
+  flex: 30;
+}
+.app_img img {
+  border-radius: 50%;
+  width: 10rem;
+}
+.app_infor {
+  flex: 70;
+  padding: 0px 15px;
+}
+.app_infor p {
+  color: white;
+  font-size: 1.325rem;
+  line-height: 1.75rem;
+  font-family: monospace;
+}
+.skills {
+  width: fit-content;
+  flex-wrap: wrap;
+}
+.skill {
+  margin: 0 1.2rem;
+}
+.skill p {
+  font-size: 1.2rem;
+  font-family: monospace;
+}
+.project {
+  width: 100%;
+}
+.project_txt {
+  flex: 4;
+}
+.project_img {
+  flex: 6;
+}
+.gird_container {
+  display: grid;
+  overflow: auto;
+  grid-template-columns: 100vw;
+  grid-template-rows: auto;
+  scroll-snap-type: y mandatory;
+}
+.gird_item {
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 14px 
+  }
+  .df-r-600-c {
+    flex-direction: column;
+  }
+}
