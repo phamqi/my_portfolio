@@ -49,12 +49,12 @@ a {
   bottom: 0;
   background-attachment: scroll;
   z-index: 0;
+  animation: canvas_animation 5s ease-in-out ;
 }
 .app {
   position: relative;
   z-index: 99999;
   overflow: hidden;
-  max-width: 1450px;
   margin-left: auto;
   margin-right: auto;
   background-color: black;
@@ -93,6 +93,11 @@ a {
 }
 h1.app_text--animation {
   animation: h1_animation 1.5s ease-out ;
+  position: relative;
+}
+img {
+  transition-duration: 0.5s;
+  z-index: 1;
 }
 h2.app_text--animation {
   animation: h2_animation 2s ease-in ;
@@ -104,16 +109,26 @@ h2.app_text--animation {
 .app_item {
   box-sizing: border-box;
   overflow: hidden;
-  min-height: 50vh;
+  min-height: 70vh;
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 10;
   position: relative;
-  padding: 5vh max(3vw, min( 11vw,calc((100vw - 600px)*9999)));
+  padding: 1vh max(3vw, min( 11vw,calc((100vw - 600px)*9999)));
+}
+.app_item.infor {
+  min-height: 30vh;
 }
 .app_item h2 {
   margin: 8vh 0;
   font-size: 2rem;
   font-family: monospace;
+}
+.app_my_skill {
+  display: flex;
+}
+h2.app_my_skill_txt {
+  margin: 8vh 0.7rem;
+  transition-duration: 1s;
 }
 .app_img {
   flex: 30;
@@ -165,6 +180,7 @@ h2.app_text--animation {
   flex-direction: column;
   justify-content: flex-start;
   padding: 0px 3rem;
+  box-sizing: border-box;
 }
 .project_name {
   margin: 0;
@@ -179,16 +195,12 @@ h2.app_text--animation {
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
 }
-.project_language img {
-  margin: 0 0.6rem 0 0;
-  width: 1.7rem;
-  height: 1.7rem;
- 
+.project_language {
+display: flex;
 }
 .project_img {
   width: 60%;
-  overflow: hidden;
-opacity: 0.5;
+opacity: 0.7;
 
 }
 .project_img:hover {
@@ -216,7 +228,7 @@ opacity: 0.5;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .btn_redirect:hover {
   opacity: 1;
@@ -235,6 +247,65 @@ opacity: 0.5;
   color: black;
   background-color: beige;
 }
+.app_contact {
+  width: 100%;
+}
+.app_nav_contact {
+  margin: 20px 0;
+  display: flex;
+}
+.app_nav_contact img {
+  background-color: white;
+  border-radius: 50%;
+  margin: 0 10px;
+  border: 2px solid white;
+}
+.app_contact form {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+}
+.app_contact form > * {
+    margin-top: 12px;
+  }
+  .app_contact form div.div_control {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .app_contact input {
+  font-size: 1rem;
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  box-sizing: border-box;
+  border: 1px solid wheat;
+  padding: 1rem 8px;
+  border-radius: 8px;
+}
+.app_contact .textarea_message {
+  border: 1px solid wheat;
+  font-size: 1rem;
+  height: 15vh;
+  width: 100%;
+  resize: none;
+  background-color: transparent;
+  color: white;
+  padding: 1rem 8px;
+  border-radius: 8px;
+  box-sizing: border-box; }
+  .app_contact .textarea_message::-webkit-scrollbar {
+    width: 2px;
+  }
+  .app_contact .btn_send {
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    background-color: #04AA6D;
+  }
 .gird_container {
   display: grid;
   overflow: auto;
@@ -260,8 +331,13 @@ opacity: 0.5;
     transform: scaleX(1);
     border-bottom: 2px solid white;
   }
+  80%{
+    transform: translateX(99999%);
+    opacity: 1;
+  }
   100% {
-    transform: scaleX(0);
+    transform: translateX(99999%);
+    opacity: 0;
   }
 }
 @keyframes h1_animation {
@@ -292,6 +368,14 @@ opacity: 0.5;
     opacity: 1;
   }
 }
+@keyframes canvas_animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 @media screen and (max-width: 600px) {
   html {
     font-size: 14px 
@@ -299,17 +383,59 @@ opacity: 0.5;
   .df-r-600-c {
     flex-direction: column;
   }
-}
-@media screen and (max-width: 900px){
+  .app_contact form {
+    width: 90vw;
+  }
   .project {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 7rem 0;
   }
+  .project_reverse {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
   .project_img , .project_txt{
     width: 100%;
+    padding: 1rem 0;
   }
+  .app_item h2 {
+    margin: 3vh 0;
+}
+h2.app_my_skill_txt {
+  margin: 3vh 0.2rem;
+}
+}
+@media (min-width: 600px) and (max-width: 900px){
+  .project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 7rem 0;
+  }
+  .project_reverse {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+  .project_img , .project_txt{
+    width: 100%;
+    padding: 1rem 0;
+  }
+  .app_contact form {
+    width: 65vw;
+  }
+  .app_item h2 {
+    margin: 3vh 0;
+}
 }
 @media screen and  (min-width: 1200px) {
   html {

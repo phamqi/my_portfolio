@@ -1,61 +1,50 @@
-import "./app.css";
-import "./styles.css";
-import Background from "./component/Background";
 import { useEffect, useRef, useState } from "react";
-import { useResize } from "./component/useResize";
+import "./app.css";
+import Background from "./component/Background";
 import Project from "./component/Project";
-import { dataProject } from "./contants/dataProject";
+import { dataProject, data } from "./contants/data";
+import SkillAndKnowledge from "./component/SkillAndKnowledge";
+import "./styles.css";
+import Contact from "./component/Contact";
 function App() {
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
-  const [startCanvas, setStartCanvas] = useState(false);
   const [ready, setReady] = useState(false);
   useEffect(() => {
     setReady(true);
-    const timer = setInterval(() => {
-      setWidth(document.body.clientWidth);
-      setHeight(window.innerHeight);
-    }, 300);
-    return () => clearTimeout(timer);
   }, []);
+
+  const [translateSkill, setTranslateSKill] = useState(window.innerHeight / 3);
+  const [translateKnow, setTranslateKnow] = useState(window.innerHeight / 3);
+  const ref = useRef();
   useEffect(() => {
-    const backgound = setTimeout(() => {
-      setStartCanvas(true);
-    }, 1000);
-    return () => clearTimeout(backgound);
-  });
-  const data = [
-    { img: "css.png", txt: "css" },
-    { img: "reactjs.png", txt: "ReactJS" },
-    { img: "sass.png", txt: "Scss" },
-    { img: "nodejs.png", txt: "NodeJS" },
-    { img: "javascript.png", txt: "JavaScript" },
-    { img: "html.png", txt: "HTML" },
-    { img: "mysql.png", txt: "MySQL" },
-    { img: "vsc.png" },
-    { img: "sandwich.png" },
-    { img: "videogame.png" },
-    { img: "burger.png" },
-    { img: "css.png" },
-    { img: "reactjs.png" },
-    { img: "sass.png" },
-    { img: "nodejs.png" },
-    { img: "javascript.png" },
-    { img: "html.png" },
-    { img: "mysql.png" },
-    { img: "vsc.png" },
-    { img: "burger.png" },
-  ];
-  // { img: "sql.png", txt: "SQL" },
+    let scrollDemo = document.getElementById("app_items");
+    let h2_skill = document.getElementById("h2_skill");
+    let locationSkill = h2_skill.getBoundingClientRect().top;
+    const abc = document.querySelectorAll("img");
+    scrollDemo.addEventListener("scroll", (event) => {
+      let skill = scrollDemo.scrollTop - locationSkill;
+      let know = locationSkill - scrollDemo.scrollTop;
+      if (skill < 0) {
+        setTranslateSKill(skill / 3);
+      } else {
+        setTranslateSKill(0);
+      }
+      if (know > 0) {
+        setTranslateKnow(know / 3);
+      } else {
+        setTranslateKnow(0);
+      }
+      abc.forEach((item) => {
+        item.style.transform = `translateY(${
+          (scrollDemo.scrollTop - item.getBoundingClientRect().top) / 30
+        }px)`;
+      });
+    });
+  }, []);
+
   return (
     <div className="app">
-      <Background
-        width={width}
-        height={height}
-        data={data}
-        startCanvas={startCanvas}
-      />
-      <div className="app_items">
+      <Background data={data} />
+      <div id="app_items" className="app_items" ref={ref}>
         <div className="app_bg df">
           <div className="app_txt df-c">
             <h1 className={ready && "app_text--animation"}>Hi! </h1>
@@ -68,7 +57,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="app_item df-r-600-c">
+        <div className="app_item infor df-r-600-c">
           <div className="app_img df">
             <img
               src="https://pbs.twimg.com/profile_images/1479282676985118722/FZI6iXUt_400x400.jpg"
@@ -85,26 +74,31 @@ function App() {
           </div>
         </div>
         <div className="app_item df-c">
-          <h2 className="">My skills & Knowledge</h2>
-          <div className="skills df-r">
-            {data.map((item, index) =>
-              item.txt ? (
-                <div className="skill df-c" key={index}>
-                  <img alt="skill-knowledge" src={item.img} />
-                  <p className="skill_text">{item.txt}</p>
-                </div>
-              ) : (
-                ""
-              )
-            )}
+          <div className="app_my_skill">
+            <h2
+              id="h2_skill"
+              style={{ transform: `translateX(${translateSkill}px)` }}
+              className="app_my_skill_txt "
+            >
+              My skills
+            </h2>
+            <h2 className="app_my_skill_txt">&</h2>
+            <h2
+              style={{ transform: `translateX(${translateKnow}px)` }}
+              className="app_my_skill_txt"
+            >
+              Knowledge
+            </h2>
           </div>
+          <SkillAndKnowledge dataSkill={data} />
         </div>
         <div className="app_item df-c">
           <h2>Project</h2>
           <Project dataProject={dataProject} />
         </div>
-        <div className="app_item">
+        <div className="app_item df-c">
           <h2>Get in touch</h2>
+          <Contact />
         </div>
       </div>
     </div>
