@@ -6,6 +6,8 @@ import { dataProject, data } from "./contants/data";
 import SkillAndKnowledge from "./component/SkillAndKnowledge";
 import "./styles.css";
 import Contact from "./component/Contact";
+import profilesApi from "./api/profilesApi";
+import categoryApi from "./api/profilesApi";
 function App() {
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -15,6 +17,14 @@ function App() {
   const [translateSkill, setTranslateSKill] = useState(window.innerHeight / 3);
   const [translateKnow, setTranslateKnow] = useState(window.innerHeight / 3);
   const ref = useRef();
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await categoryApi.getAll();
+        console.log(data);
+      } catch (error) {}
+    })();
+  }, []);
   useEffect(() => {
     let scrollDemo = document.getElementById("app_items");
     let h2_skill = document.getElementById("h2_skill");
