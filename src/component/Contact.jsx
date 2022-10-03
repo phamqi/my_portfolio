@@ -1,11 +1,21 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
 import emailjs from "emailjs-com";
-
-import { dataContact } from "../contants/data";
+import React, { useEffect, useState } from "react";
+import getApi from "../api/getApi";
+import { HOST } from "../contants/data";
 Contact.propTypes = {};
 
 function Contact() {
+  const [dataContact, setDataContact] = useState([]);
+  const [host, setHost] = useState(HOST);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data, host } = await getApi.getContact();
+        setDataContact(data);
+        setHost(host);
+      } catch (error) {}
+    })();
+  }, []);
   const [inputs, setInputs] = useState({});
 
   const onChange = (e) => {
@@ -16,14 +26,18 @@ function Contact() {
   };
   function sendEmail(e) {
     e.preventDefault();
-    if (
-      inputs.name === "" ||
-      Boolean(inputs) ||
-      inputs.email === "" ||
-      inputs.message === ""
-    ) {
+
+    if (!inputs.name || !inputs || !inputs.email || !inputs.message) {
       alert("You must fill out all the fields");
     } else {
+      (async () => {
+        const send_at = Date();
+        await getApi.postMessage({
+          email: inputs.email,
+          message: inputs.message,
+          send_at: send_at,
+        });
+      })();
       emailjs
         .sendForm(
           "service_yynun1x",
@@ -45,21 +59,15 @@ function Contact() {
   return (
     <div className="app_contact df-c">
       <nav className="app_nav_contact">
-        {dataContact.map((item) => (
-          <a href={item.link} target="_blank">
-            <div
-              style={{
-                width: "65px",
-                height: "65px",
-                backgroundImage: `url(${item.img})`,
-                backgroundRepeat: "no-repeat",
-                backgroundColor: "white",
-                backgroundSize: "contain",
-                borderRadius: "50%",
-                margin: "0 10px",
-                border: "2px solid white",
-              }}
-            ></div>
+        {dataContact.map((item, index) => (
+          <a
+            className="contact_a"
+            href={item.link}
+            target="_blank"
+            key={index}
+            rel="noopener noreferrer"
+          >
+            <img alt="img" className="contact_img" src={host + item.img} />
           </a>
         ))}
       </nav>

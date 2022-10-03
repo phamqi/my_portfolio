@@ -1,11 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import getApi from "../api/getApi";
+import { HOST } from "../contants/data";
 
 Background.propTypes = {};
 
-function Background({ data }) {
+function Background() {
   let canvas;
   let ctx;
   let icons = [];
+  let iconWidth = 64;
+  const [host, setHost] = useState(HOST);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data, host } = await getApi.getData();
+        setData(data);
+        setHost(host);
+      } catch (error) {}
+    })();
+  }, []);
   useEffect(() => {
     const dataLength = data.length;
     canvas = document.querySelector("canvas");
@@ -27,10 +41,16 @@ function Background({ data }) {
         ctx.restore();
       }
       update() {
-        if (this.x + 64 >= window.innerWidth || this.x - 64 <= 0) {
+        if (
+          this.x + iconWidth >= window.innerWidth ||
+          this.x - iconWidth <= 0
+        ) {
           this.velx = -this.velx;
         }
-        if (this.y + 64 >= window.innerHeight || this.y - 64 <= 0) {
+        if (
+          this.y + iconWidth >= window.innerHeight ||
+          this.y - iconWidth <= 0
+        ) {
           this.vely = -this.vely;
         }
         this.x += this.velx;
@@ -46,7 +66,7 @@ function Background({ data }) {
     }
     const imgs = data.map((source) => {
       const image = document.createElement("img");
-      image.src = source.img;
+      image.src = `${host + source.img}`;
       return image;
     });
     const setup = () => {
@@ -74,7 +94,7 @@ function Background({ data }) {
     setup();
     animate();
     window.addEventListener("resize", setup);
-  }, []);
+  }, [data]);
 
   return <canvas id="canvas" className="canvas"></canvas>;
 }

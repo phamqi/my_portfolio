@@ -1,113 +1,110 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, useEffect, useRef, useState } from "react";
 import "./app.css";
 import Background from "./component/Background";
-import Project from "./component/Project";
-import { dataProject, data } from "./contants/data";
-import SkillAndKnowledge from "./component/SkillAndKnowledge";
-import "./styles.css";
 import Contact from "./component/Contact";
-import profilesApi from "./api/profilesApi";
-import categoryApi from "./api/profilesApi";
+import MusicNote from "./component/MusicNote.jsx";
+import Profiles from "./component/Profiles";
+import Project from "./component/Project";
+import SkillAndKnowledge from "./component/SkillAndKnowledge";
+
+import "./styles.css";
+
 function App() {
+  console.log("app rerender");
   const [ready, setReady] = useState(false);
   useEffect(() => {
     setReady(true);
   }, []);
-
-  const [translateSkill, setTranslateSKill] = useState(window.innerHeight / 3);
-  const [translateKnow, setTranslateKnow] = useState(window.innerHeight / 3);
+  const [translateSkill, setTranslateSKill] = useState(window.innerHeight / 2);
+  const [translateKnow, setTranslateKnow] = useState(window.innerHeight / 2);
   const ref = useRef();
+
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await categoryApi.getAll();
-        console.log(data);
-      } catch (error) {}
-    })();
-  }, []);
-  useEffect(() => {
-    let scrollDemo = document.getElementById("app_items");
-    let h2_skill = document.getElementById("h2_skill");
+    let scroll = document.getElementById("app_items");
+    let h2_skill = document.querySelector("#h2_skill");
     let locationSkill = h2_skill.getBoundingClientRect().top;
-    const abc = document.querySelectorAll("img");
-    scrollDemo.addEventListener("scroll", (event) => {
-      let skill = scrollDemo.scrollTop - locationSkill;
-      let know = locationSkill - scrollDemo.scrollTop;
+    let skill;
+    let know;
+    const details = document.getElementById("details");
+    scroll.addEventListener("scroll", (event) => {
+      details.open = false;
+      skill = scroll.scrollTop - locationSkill;
+      know = locationSkill - scroll.scrollTop;
       if (skill < 0) {
-        setTranslateSKill(skill / 3);
+        setTranslateSKill(skill / 4);
       } else {
         setTranslateSKill(0);
       }
       if (know > 0) {
-        setTranslateKnow(know / 3);
+        setTranslateKnow(know / 4);
       } else {
         setTranslateKnow(0);
       }
-      abc.forEach((item) => {
-        item.style.transform = `translateY(${
-          (scrollDemo.scrollTop - item.getBoundingClientRect().top) / 30
-        }px)`;
+      document.querySelectorAll(".img_lazy").forEach((item) => {
+        if (item.getBoundingClientRect().top <= 600) {
+          item.setAttribute("src", item.getAttribute("lazy-load"));
+          item.style.transform = `translateY(${
+            (-scroll.scrollTop + item.getBoundingClientRect().top) / 58
+          }px)`;
+        }
       });
     });
   }, []);
 
   return (
     <div className="app">
-      <Background data={data} />
+      <MusicNote />
+      <details id="details" className="app_list">
+        <summary>Menu</summary>
+        <ul className="app_list_content">
+          <li>
+            <a href="#overview">Overview</a>
+          </li>
+          <li>
+            <a href="#h2_skill">Skills & knowledge</a>
+          </li>
+          <li>
+            <a href="#project">Project</a>
+          </li>
+          <li>
+            <a href="#contacts">Contacts</a>
+          </li>
+        </ul>
+      </details>
+      <Background />
       <div id="app_items" className="app_items" ref={ref}>
         <div className="app_bg df">
           <div className="app_txt df-c">
-            <h1 className={ready && "app_text--animation"}>Hi! </h1>
-            <div className={ready && "app_bt"}></div>
-            <div className="df-c-j">
-              <h2 className={ready && "app_text--animation"}>I am Quy</h2>
-              <h2 className={ready && "app_text--animation"}>
-                I'm a developer
-              </h2>
-            </div>
+            {ready ? (
+              <>
+                <h1 className="app_text--animation">Hi!</h1>
+                <div className="app_bt"></div>
+                <div className="df-c-j">
+                  <h2 className="app_text--animation">I am Quy</h2>
+                  <h2 className="app_text--animation">I'm a developer</h2>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
           </div>
         </div>
-        <div className="app_item infor df-r-600-c">
-          <div className="app_img df">
-            <img
-              src="https://pbs.twimg.com/profile_images/1479282676985118722/FZI6iXUt_400x400.jpg"
-              alt="avatar"
-            ></img>
-          </div>
-          <div className="app_infor">
-            <p>
-              My name is Pham Xuan Quy, 24 years old. I'm originally from Hai
-              Duong but I've lived in HCM city for 20 years now. I graduated
-              from the TayDo University. I have made some projects. I hope to be
-              a great developer and get my dream job in the future
-            </p>
-          </div>
+        <div className="app_item infor  df-c">
+          <h2 id="overview">Overview</h2>
+          <Profiles />
         </div>
         <div className="app_item df-c">
-          <div className="app_my_skill">
-            <h2
-              id="h2_skill"
-              style={{ transform: `translateX(${translateSkill}px)` }}
-              className="app_my_skill_txt "
-            >
-              My skills
-            </h2>
-            <h2 className="app_my_skill_txt">&</h2>
-            <h2
-              style={{ transform: `translateX(${translateKnow}px)` }}
-              className="app_my_skill_txt"
-            >
-              Knowledge
-            </h2>
-          </div>
-          <SkillAndKnowledge dataSkill={data} />
+          <SkillAndKnowledge
+            translateKnow={translateKnow}
+            translateSkill={translateSkill}
+          />
         </div>
         <div className="app_item df-c">
-          <h2>Project</h2>
-          <Project dataProject={dataProject} />
+          <h2 id="project">Project</h2>
+          <Project />
         </div>
-        <div className="app_item df-c">
-          <h2>Get in touch</h2>
+        <div className="app_item df-c-f">
+          <h2 id="contacts">Get in touch</h2>
           <Contact />
         </div>
       </div>
