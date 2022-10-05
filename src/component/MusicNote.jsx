@@ -22,7 +22,7 @@ function MusicNote(props) {
     }
   };
   useEffect(() => {
-    ref.current.volume = 0.2;
+    ref.current.volume = 0.05;
   }, []);
   return (
     <div className="bg__music">

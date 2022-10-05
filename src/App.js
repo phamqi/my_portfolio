@@ -3,6 +3,7 @@ import "./app.css";
 import Background from "./component/Background";
 import Contact from "./component/Contact";
 import MusicNote from "./component/MusicNote.jsx";
+import OnTouch from "./component/OnTouch";
 import Profiles from "./component/Profiles";
 import Project from "./component/Project";
 import SkillAndKnowledge from "./component/SkillAndKnowledge";
@@ -54,6 +55,7 @@ function App() {
   return (
     <div className="app">
       <MusicNote />
+
       <details id="details" className="app_list">
         <summary>Menu</summary>
         <ul className="app_list_content">
@@ -108,6 +110,7 @@ function App() {
           <Contact />
         </div>
       </div>
+      <OnTouch />
     </div>
   );
 }
