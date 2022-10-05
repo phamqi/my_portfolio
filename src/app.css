@@ -525,7 +525,6 @@ background: linear-gradient(to right, #999999, #ffffff 50%, #999999);
   right: 1rem;
   position: fixed;
   z-index: 9999;
-  overflow: hidden;
 }
 .bg__music__wrapper {
   position: relative;
@@ -550,11 +549,35 @@ background: linear-gradient(to right, #999999, #ffffff 50%, #999999);
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0.5;
+}
+.bg__music__icon:hover {
+  opacity: 1;
+}
+.bg__music__icon:hover::after {
+display: flex;
+}
+.bg__music__icon::after {
+  content: 'Play music';
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  width: 100px;
+  height: 38px;
+  left: -68px;
+  bottom: -55px;
+  background-color: white;
+  color: var(--color-bg);
+  border-radius: 8px;
+  position: absolute;
+  z-index: 10;
 }
 .bg__music__wrapper.show {
   transform: translateX(0);
 }
 .show .bg__music__icon {
+  opacity: 1;
   border-top-left-radius: 50%;
   border-top-right-radius: 0%;
   border-bottom-right-radius: 0%;
