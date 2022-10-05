@@ -85,14 +85,15 @@ h1, h2 {
 .app_list summary {
   opacity: 0.7;
   border-radius: 8px;
-  border: 2px solid white;
+  border: 1px solid white;
   font-weight: bold;
   padding: 0.35rem;
   width: fit-content;
   cursor: pointer;
   user-select: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   background-color: var(--color-bg);
+  font-weight: 600;
 }
 .app_list summary:hover {
   opacity: 1;
@@ -108,7 +109,7 @@ h1, h2 {
   list-style: none;
 }
 .app_list_content li  a{
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--color-on-bg);
   opacity: 0.7;
@@ -141,7 +142,7 @@ h1, h2 {
 }
 .app_txt h1 {
   margin: 1rem;
-  font-size: 7rem;
+  font-size: 5rem;
 }
 .app_bt {
   width: 15rem;
@@ -161,7 +162,7 @@ h2.app_text--animation {
 .app_txt h2 {
   color: white;
   margin: 0.3rem 0;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 .app_item {
   box-sizing: border-box;
@@ -199,7 +200,7 @@ h2.app_my_skill_txt {
   flex: 70;
 }
 .app_infor p {
-  font-size: 1.325rem;
+  font-size: 1.1rem;
   line-height: 1.75rem;
   font-family: monospace;
 }
@@ -211,13 +212,14 @@ h2.app_my_skill_txt {
   margin: 0 1.2rem;
 }
 .skill p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: monospace;
 }
 .skill > div {
   background-repeat: no-repeat;
-  width: 65px;
-  height: 65px;
+  width: 50px;
+  height: 50px;
+  background-size: contain;
 }
 .knowledge ul {
   padding: 0;
@@ -225,7 +227,7 @@ h2.app_my_skill_txt {
 }
 .knowledge ul li {
   margin: 0.5rem 0;
-  font-size: 1.3rem;
+  font-size: 1rem;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -274,7 +276,7 @@ h2.app_my_skill_txt {
   text-overflow: ellipsis;
 }
 .project_description {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -313,7 +315,7 @@ display: flex;
 }
 .btn_redirect {
   box-sizing: border-box;
-  height: 2.4rem;
+  height: 2.1rem;
   width: 6.7rem;
   font-weight: 600;
   margin: 1rem  0;
@@ -338,16 +340,21 @@ display: flex;
 }
 
 .app_live_demo:hover:after {
-  background-color: white;
-  padding: 8px;
-  width: 178%;
-  position: absolute;
-  content: ' Redirect to live demo';
-  bottom: -140%;
-  left: 20px;
+  background-color: #fff;
+  border: 1px solid #fff;
   border-radius: 8px;
+  bottom: -140%;
+  color: #27272c;
   color: var(--color-bg);
-  border: 1px solid white;
+  content: " Redirect to live demo";
+  left: 20px;
+  padding: 4px;
+  position: absolute;
+  width: 136%;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .app_source {
   color: white;
@@ -359,16 +366,18 @@ display: flex;
   background-color: white;
 }
 .app_source:hover:after {
-  background-color: white;
-  padding: 8px;
-  width: 130%;
-  position: absolute;
-  content: ' Redirect to gitHub';
-  bottom: -140%;
-  left: 20px;
+  font-size: 0.9rem;
+  border: 1px solid #fff;
   border-radius: 8px;
-  color: var(--color-bg);
-  border: 1px solid white;
+  bottom: -140%;
+  content: " Redirect to gitHub";
+  left: 20px;
+  padding: 4px;
+  position: absolute;
+  width: 120%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .app_contact {
   margin-bottom: 10rem;
@@ -379,8 +388,8 @@ display: flex;
   display: flex;
 }
 .contact_img {
-  height: 55px;
-  width: 55px;
+  height: 45px;
+  width: 45px;
   background-color: white;
   border-radius: 50%;
   margin: 0 10px;
@@ -435,7 +444,7 @@ display: flex;
     font-size: 1.15rem;
     font-weight: 600;
     width: 100%;
-    padding: 0.8rem;
+    padding: 0.5rem;
     border-radius: 8px;
     cursor: pointer;
     color: var(--color-blue);
@@ -526,11 +535,15 @@ background: linear-gradient(to right, #999999, #ffffff 50%, #999999);
   position: fixed;
   z-index: 9999;
 }
+audio {
+  height: 40px;
+  width: 275px;
+}
 .bg__music__wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  transform: translateX(300px);
+  transform: translateX(275px);
   transition-duration: 1.5s;
   border-radius: 50%;
 }
@@ -538,8 +551,8 @@ background: linear-gradient(to right, #999999, #ffffff 50%, #999999);
   background-color: transparent;
   border: none;
   transition-duration: 1.25s;
-  width: 54px;
-  height: 54px;
+  width: 40px;
+  height: 40px;
   background-color: #f1f3f4;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
@@ -587,14 +600,14 @@ display: flex;
   content: '';
   position: absolute;
   width: 0px;
-  height: 54px;
+  height: 40px;
   bottom: 0;
   top: 0;
 }
 .show .bg__music__icon__after {
   transition-duration: 0.5s;
   width: 50px;
-  height: 54px;
+  height: 40px;
   left: 40px;
   bottom: 0;
   top: 0;
@@ -603,8 +616,8 @@ display: flex;
 .show .bg__music__icon::before {
   content: '';
   transition-duration: 1s;
-  width: 54px;
-  height: 54px;
+  width: 40px;
+  height: 40px;
   left: 60px;
   bottom: 0;
   top: 0;
@@ -616,11 +629,11 @@ display: flex;
 .show .bg__music__audio {
   visibility: visible;
   transform: translateX(0px);
-  height: 54px;
+  height: 40px;
   transition-duration: 1s;
 }
 .bg__music__icon svg {
-  width: 40px;
+  width: 30px;
   color: black;
 }
 .bg__music__audio {
