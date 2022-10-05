@@ -55,7 +55,6 @@ function App() {
   return (
     <div className="app">
       <MusicNote />
-
       <details id="details" className="app_list">
         <summary>Menu</summary>
         <ul className="app_list_content">

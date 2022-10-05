@@ -1,5 +1,7 @@
 import emailjs from "emailjs-com";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo, useRef } from "react";
+
+import Plane from "./Plane";
 import getApi from "../api/getApi";
 import { HOST } from "../contants/data";
 Contact.propTypes = {};
@@ -17,16 +19,20 @@ function Contact() {
     })();
   }, []);
   const [inputs, setInputs] = useState({});
-
+  const [sended, setSended] = useState(false);
+  const timeout = useRef(null);
+  const resetTimeout = () => {
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+  };
   const onChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
-    console.log(inputs);
   };
   function sendEmail(e) {
     e.preventDefault();
-
     if (!inputs.name || !inputs || !inputs.email || !inputs.message) {
       alert("You must fill out all the fields");
     } else {
@@ -47,7 +53,14 @@ function Contact() {
         )
         .then(
           (result) => {
-            alert("Thanks you for contacting me");
+            setSended(true);
+            resetTimeout();
+            setTimeout(() => {
+              setSended(false);
+              alert("Thanks you for contacting me");
+            }, 6500);
+            resetTimeout();
+            setInputs({});
           },
           (error) => {
             alert("Something went wrong, please try again later");
@@ -93,7 +106,8 @@ function Contact() {
           onChange={onChange}
           value={inputs.message || ""}
         />
-        <div className="div_control">
+        <div className={sended ? "div_control sended" : "div_control"}>
+          <Plane />
           <button type="submit" value="Send" className="btn_send">
             Send
           </button>
@@ -103,4 +117,4 @@ function Contact() {
   );
 }
 
-export default Contact;
+export default memo(Contact);

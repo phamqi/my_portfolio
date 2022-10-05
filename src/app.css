@@ -174,9 +174,15 @@ h2.app_text--animation {
   padding: 0 max(3vw, min( 11vw,calc((100vw - 600px)*9999)));
 }
 .app_item h2 {
-  padding: 7rem 0 2rem 0;
+  padding: 4rem 0 2rem ;
   font-size: 2rem;
   font-family: monospace;
+}
+.app_my_skill_txt.skill {
+  padding:  4rem 0 2rem 0 ;
+} 
+.app_my_skill_txt.know {
+  padding:  0 ;
 }
 .app_item > div {
   max-width: 1356px;
@@ -416,6 +422,7 @@ display: flex;
   .app_contact form div.div_control {
     display: flex;
     justify-content: flex-end;
+    position: relative;
   }
   .app_contact input {
   font-size: 1rem;
@@ -445,6 +452,7 @@ display: flex;
     font-size: 1.15rem;
     font-weight: 600;
     width: 100%;
+    height: 50px;
     padding: 0.5rem;
     border-radius: 8px;
     cursor: pointer;
@@ -564,6 +572,7 @@ audio {
   justify-content: center;
   align-items: center;
   opacity: 0.5;
+  cursor: pointer;
 }
 .bg__music__icon:hover {
   opacity: 1;
@@ -604,12 +613,13 @@ display: flex;
   height: 40px;
   bottom: 0;
   top: 0;
+  cursor: pointer;
 }
 .show .bg__music__icon__after {
   transition-duration: 0.5s;
-  width: 40px;
+  width: 44px;
   height: 40px;
-  left: 40px;
+  left: 30px;
   bottom: 0;
   top: 0;
   background-color: #f1f3f4;
@@ -816,7 +826,6 @@ display: flex;
 }
 
 /* On touch css */
-
 .touch__wrapper {
   display: block;
   position: fixed;
@@ -982,8 +991,215 @@ span.item__5 {
     bottom:  var(--end);
     left:  var(--local);
     opacity: 0;
-
     width: calc(5px + var(--local));
     height: calc(5px + var(--local));
+  }
+}
+
+/* animation send mail  */
+
+.wrapper {
+  display: none;
+  position: absolute;
+  right: 50%;
+  z-index: 999999;
+  transform: scale(.5);
+  pointer-events: none;
+}
+.sended {
+  pointer-events: none;
+}
+.sended .wrapper {
+  display: block;
+}
+.plane__paper {
+  position: relative;
+}
+.plane__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.paperplane {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+.plane {
+  position: absolute;
+  left: 51px;
+  top: -11px;
+  transform: scale(0.65);
+ opacity: 0;
+}
+.wingRight {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 22.5px solid transparent;
+  border-right: 12.5px solid transparent;
+  border-bottom: 115px solid white;
+  transform: rotate(61deg); 
+  z-index:4;
+}
+
+.bottom {
+  position: relative;
+  width: 0;
+  height: 0;
+  border-left: 1.5px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 22px solid #676d70;
+  top: 72px;
+  transform: rotate(-122deg);
+  left: -54px;
+  z-index: 3;
+}
+
+.top {
+  position:absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 30px solid #c1c7c9;
+  top: 65px;
+  transform: rotate(5deg);
+  left:-60px;
+  z-index:1;
+}
+
+.middle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 135px solid #c1c7c9;
+  top: -13.5px;
+  transform: rotate(72deg);
+  left:-7.5px;
+  z-index:2;
+}
+
+.wingLeft {
+  position: absolute; 
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-bottom: 135px solid white;
+  transform: rotate(78deg) skewY(-35deg); 
+  left:-18.5px;
+  z-index:3;
+  top:-30px;
+}
+.plane_transfor{
+  width: 100px;
+  height: 100px;
+  background-color: #00bbcb;
+  opacity: 0;
+}
+.app_contact .sended .btn_send {
+  transition-duration: 0.5s;
+  animation: ani-btn 4s linear
+}
+.sended .plane_transfor {
+  animation: transfor 3s linear ;
+}
+.sended .plane {
+  animation: fly 3s ease-in-out 2.9s ;
+}
+@keyframes transfor {
+  0% {
+    clip-path: polygon(95% 0, 100% 50%, 95% 100%, 5% 100%, 0 50%, 5% 0);
+    transform: scale3d(3);
+    opacity: 1;
+  }
+  10%, 30%{
+    clip-path: polygon(95% 0, 100% 50%, 95% 100%, 5% 100%, 0 50%, 5% 0);
+    transform: scaleX(3);
+    opacity: 1;
+  }
+  40%{
+    clip-path: polygon(50% 0%, 100% 100%, 75% 100%, 50% 100%, 25% 100%, 0 100%);
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  45% {
+    clip-path: polygon(50% 0%, 100% 100%, 75% 100%, 50% 100%, 25% 100%, 0 100%);
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  80% {
+    clip-path: polygon(100% 15%, 38% 59%, 32% 48%, 20% 55%, 14% 33%, 0 20%);
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    clip-path: polygon(100% 15%, 38% 59%, 32% 48%, 20% 55%, 14% 33%, 0 20%);
+    transform: scaleX(1);
+    opacity: 0.7;
+  }
+}
+@keyframes fly {
+  0%{
+    opacity: 1;
+    transform: rotate(0deg) translateX(0) scale(0.65);
+  }
+  20%{
+    opacity: 1;
+    transform: rotate(0deg) translateX(0) scale(0.65);
+  }
+  40%, 75%{
+    transform: rotate(-40deg) translateX(100px) scale(0.65);
+    opacity: 1;
+  }
+  60% {
+    transform: rotate(40deg) translateX(100px) scale(0.55);
+    top: -80vh;
+    opacity: 1;
+  }
+  100%{
+    left: 50vw;
+    top: 100vh;
+    transform: rotate(-40deg) translateX(100px) scale(0.40);
+    opacity: 1;
+  }
+}
+@keyframes ani-btn {
+  0%{
+    background-color: #00bbcb;
+    font-size: 0;
+    transform: scaleX(1);
+    height: 50px;
+    opacity: 1;
+  }
+  10%{
+    background-color: #00bbcb;
+    font-size: 0;
+    color: #00bbcb;
+    transform: scaleX(0);
+    height: 50px;
+    opacity: 1;
+  }
+  20%{
+    opacity: 0;
+  }
+  80%{
+    background-color: #00bbcb;
+    font-size: 0;
+    color: #00bbcb;
+    transform: scaleX(0);
+    height: 50px;
+    opacity: 0;
+  }
+  100% {
+    background-color: #00bbcb;
+    color: #00bbcb;
+    transform: scaleX(1);
+    height: 50px;
+    opacity: 1;
   }
 }

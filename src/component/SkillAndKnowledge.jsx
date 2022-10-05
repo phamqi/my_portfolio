@@ -32,7 +32,7 @@ function SkillAndKnowledge({ translateKnow, translateSkill }) {
           style={{
             transform: `translateX(${translateSkill}px)`,
           }}
-          className="app_my_skill_txt "
+          className="app_my_skill_txt skill "
         >
           My skills
         </h2>
@@ -56,7 +56,7 @@ function SkillAndKnowledge({ translateKnow, translateSkill }) {
       <div className="app_my_skill">
         <h2
           style={{ transform: `translateX(${translateKnow}px)` }}
-          className="app_my_skill_txt"
+          className="app_my_skill_txt know"
         >
           Knowledge
         </h2>
@@ -71,5 +71,4 @@ function SkillAndKnowledge({ translateKnow, translateSkill }) {
     </div>
   );
 }
-
 export default SkillAndKnowledge;
